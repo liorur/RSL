@@ -1,0 +1,25 @@
+{
+  "name": "rsl",
+  "version": "1.0.0",
+  "description": "Rapid Settlements over Lightning network ",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liorur/RSL.git"
+  },
+  "keywords": [
+    "btc",
+    "bitcoin",
+    "lightning",
+    "bitcoinEmbassy"
+  ],
+  "author": "LiorUr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liorur/RSL/issues"
+  },
+  "homepage": "https://github.com/liorur/RSL#readme"
+}
