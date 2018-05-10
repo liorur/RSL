@@ -43,3 +43,7 @@ Create a channel with faucet:
 ```
 lncli --rpcserver 127.0.0.1:10009 --no-macaroons connect 0270685ca81a8e4d4d01beec5781f4cc924684072ae52c507f8ebe9daf0caaab7b@159.203.125.125
 ```
+
+## Get funds from faucet
+
+After doing all of the above, open a browser at [https://faucet.lightning.community](https://faucet.lightning.community) and send some satoshis to your node with the identity_pubkey.
