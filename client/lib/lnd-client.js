@@ -30,4 +30,24 @@ function listPeers() {
     });
 }
 
-module.exports = {getInfo, listPeers};
+function listChannels(active_only = true, inactive_only = false, public_only = false, private_only = false) {
+    return new Promise((resolve, reject) => {
+        lightning.ListChannels({
+            active_only,
+            inactive_only,
+            public_only,
+            private_only,
+        }, function (err, response) {
+            if (err)
+                reject(err);
+            else
+                resolve(response);
+        });
+    });
+}
+
+module.exports = {
+    getInfo,
+    listPeers,
+    listChannels,
+};

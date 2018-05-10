@@ -7,3 +7,7 @@ lndClient.getInfo()
 lndClient.listPeers()
     .then(info => console.log(info))
     .catch(err => console.error(err));
+
+lndClient.listChannels()
+    .then(info => console.log(info))
+    .catch(err => console.error(err));
