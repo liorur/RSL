@@ -38,3 +38,8 @@ Create a wallet:
 ```
 lncli --rpcserver 127.0.0.1:10009 --no-macaroons create
 ```
+
+Create a channel with faucet:
+```
+lncli --rpcserver 127.0.0.1:10009 --no-macaroons connect 0270685ca81a8e4d4d01beec5781f4cc924684072ae52c507f8ebe9daf0caaab7b@159.203.125.125
+```
