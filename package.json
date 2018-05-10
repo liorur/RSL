@@ -27,11 +27,14 @@
   },
   "homepage": "https://github.com/liorur/RSL#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
     "dotenv": "^5.0.1",
+    "cors": "^2.8.4",
     "express": "^4.16.3",
     "grpc": "^1.11.3",
+    "http": "0.0.0",
     "http-proxy-middleware": "^0.18.0",
     "method-override": "^2.3.10",
     "path": "^0.12.7"
