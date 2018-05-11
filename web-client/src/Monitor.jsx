@@ -57,8 +57,8 @@ class Monitor extends Component {
         let newseen = false;
         const listItems = this.state.ticks
             .filter(t => {
-                if (t.status == "NEW") {
-                    if (newseen == false) {
+                if (t.status === "NEW") {
+                    if (newseen === false) {
                         newseen = true;
                         return true;
                     } else {
@@ -85,7 +85,7 @@ class Monitor extends Component {
                     <tr>
                         <th>Sum</th>
                         <td>${this.state.baseSum}</td>
-                        <td>${this.props.side == "STABLE" ? this.state.baseSum : this.state.currentSum}</td>
+                        <td>${this.props.side === "STABLE" ? this.state.baseSum : this.state.currentSum}</td>
                     </tr>
                     <tr>
                         <th> Rate</th>

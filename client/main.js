@@ -44,7 +44,7 @@ const review = (side) => {
 
     currentLog.forEach((element) => {
         if (element.status === _FULFILLED_) {
-            //console.log(element);
+            console.log(element);
             if (element.receiving_side === _LONG_) {
                 longSum += element.satoshies_to_send;
             }
@@ -81,6 +81,9 @@ const review = (side) => {
     const lastResolved = fulfilled || initial;
     const firtsUnresolved = pending || newTick;
 
+    console.log("lastResolved",lastResolved);
+    console.log("firtsUnresolved",firtsUnresolved);
+
     currentRate = lastResolved.rate;
 
     if (side == _LONG_) {
@@ -100,7 +103,8 @@ const review = (side) => {
     if (!firtsUnresolved) {
         return
     }
-    if (lastResolved.rate < firtsUnresolved.rate) {
+
+    if (lastResolved.rate <= firtsUnresolved.rate) {
         if (side === _LONG_) {
             if (firtsUnresolved.status === _PENDING_) {
                 checkAndFulfill(firtsUnresolved.index, firtsUnresolved.invoice_hash);
