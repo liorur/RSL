@@ -21,7 +21,7 @@ MongoClient.connect(uri, function (err, client) {
 });
 
 const Start = () => {
-    setInterval(update, 3000);
+    setInterval(update, 1500);
 };
 
 let currentLog = [];

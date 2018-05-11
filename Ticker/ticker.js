@@ -9,113 +9,30 @@ MongoClient.connect(uri, function (err, client) {
     collection.drop(function (err, res) {
 
         console.log("ALL REMOVED");
-        const x = 0.05;
+        const x = 5;
         const base = 10000;
-        let record;
-        record = {
+        const records = [{
             index: 1,
             invoice_hash: null,
             status: "INITIAL",
             timestamp: 1,
             rate: base,
-        };
-        collection.insertOne(record, function (err, res) {
+        }];
+
+        for (let i = 2; i < 100; i++) {
+            const movment = x * (Math.floor(Math.random() * 21) - 10);
+            records.push({
+                index: i,
+                status: "NEW",
+                timestamp: i,
+                rate: base + movment,
+            })
+        }
+
+        collection.insertMany(records, function (err, res) {
             if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
         });
 
-        record = {
-            index: 2,
-            invoice_hash: null,
-            status: "NEW",
-            timestamp: 2,
-            rate: base + 2 * x,
-        };
-        collection.insertOne(record, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
-        });
-
-
-        record = {
-            index: 3,
-            invoice_hash: null,
-            status: "NEW",
-            timestamp: 3,
-            rate: base + 4 * x,
-        };
-        collection.insertOne(record, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
-        });
-
-        record = {
-            index: 4,
-            invoice_hash: null,
-            status: "NEW",
-            timestamp: 4,
-            rate: base,
-        };
-        collection.insertOne(record, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
-        });
-
-        record = {
-            index: 5,
-            invoice_hash: null,
-            status: "NEW",
-            timestamp: 5,
-            rate: base - x,
-        };
-        collection.insertOne(record, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
-        });
-
-        record = {
-            index: 6,
-            invoice_hash: null,
-            status: "NEW",
-            timestamp: 6,
-            rate: base + x,
-        };
-        collection.insertOne(record, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
-        });
-
-        record = {
-            index: 7,
-            invoice_hash: null,
-            status: "NEW",
-            timestamp: 7,
-            rate: base - (x * 7),
-        };
-        collection.insertOne(record, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
-        });
-
-        record = {
-            index: 8,
-            invoice_hash: null,
-            status: "NEW",
-            timestamp: 8,
-            rate: base ,
-        };
-        collection.insertOne(record, function (err, res) {
-            if (err) throw err;
-            console.log("1 document inserted");
-            console.log(record);
-        });
 
     });
 

@@ -8,9 +8,11 @@ const Tick = (props) => {
     const fulfilled = data.status === "FULFILLED";
     const initial = data.status === "INITIAL";
     const pending = data.status === "PENDING";
-    return (<div className={`tick ${fulfilled ? 'fulfilled' : ''} ${initial ? 'initial' : ''} ${initial ? 'initial' : ''}  ${pending ? 'pending' : ''}`}>
+    return (<div
+            className={`tick ${fulfilled ? 'fulfilled' : ''} ${initial ? 'initial' : ''} ${initial ? 'initial' : ''}  ${pending ? 'pending' : ''}`}>
 
-            <span className="info">satoshies {data.receiving_side ? 'sent' : 'received'}: {data.satoshies_to_send}</span>
+            <span
+                className="info">satoshies {data.receiving_side ? 'sent' : 'received'}: {data.satoshies_to_send}</span>
             <span className="info">rate: {data.rate}</span>
             <span className="info"> status: {data.status}</span>
         </div>
@@ -52,8 +54,20 @@ class Monitor extends Component {
 
     render() {
 
-
-        const listItems = this.state.ticks.map((t, i) => <Tick key={i} data={t}>{i}</Tick>);
+        let newseen = false;
+        const listItems = this.state.ticks
+            .filter(t => {
+                if (t.status == "NEW") {
+                    if (newseen == false) {
+                        newseen = true;
+                        return true;
+                    } else {
+                        return false
+                    }
+                }
+                return true;
+            })
+            .reverse().map((t, i) => <Tick key={i} data={t}>{i}</Tick>);
 
         return (<div className="App">
             <header className="App-header">
