@@ -1,3 +1,5 @@
+# A decentralized lightning settlement for FIAT hedging
+
 This poc demonstrates one channel, but this channel can be extended to a whole network.
 The framework this network can be built around a decentralized trustless contract.
 
