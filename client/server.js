@@ -5,6 +5,7 @@ const methodOverride = require('method-override');
 const proxy = require('http-proxy-middleware');
 const apiRouter = require('./api-router');
 const config = require('./config');
+const main = require('./main');
 var cors = require('cors')
 
 function initServer() {
@@ -16,6 +17,7 @@ function initServer() {
     app.use(router);
     app.use(apiRouter());
 
+    main.Start();
     //router.use('/public', proxy({target: 'http://localhost:3000/',}));
     //router.use('/static/js/bundle.js', proxy({target: 'http://localhost:3000/static/js/bundle.js',}));
 
