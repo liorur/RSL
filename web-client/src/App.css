@@ -65,6 +65,10 @@ td{
     background-color: aquamarine;
 }
 
+.tick.initial{
+    background-color:lightgoldenrodyellow;
+}
+
 .info{
     width:30%;
     display: inline-block;

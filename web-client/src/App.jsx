@@ -19,22 +19,22 @@ class App extends Component {
 
     componentDidMount() {
         const self = this;
-        setInterval(() => {
-            axios.get('http://localhost:3333/api/state', {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                }
-            })
-                .then((response) => {
-                    self.setState((prevState, props) => {
-                        return {rate: response.data.BTCUSD.last};
-                    });
-                })
-                .catch((error) => {
-                    console.log(error);
+
+        axios.get('http://localhost:3333/api/state', {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+            }
+        })
+            .then((response) => {
+                self.setState(() => {
+                    return {side: response.data.side};
                 });
-        }, 5000)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
+
 
     setA() {
         this.setState((prevState, props) => {
@@ -54,13 +54,13 @@ class App extends Component {
                 <header className="App-header">
                     <h1 className="App-title">Select Side</h1>
                 </header>
-                <button onClick={() => this.setA()} type="button" className="btn btn-primary">
+                <button onClick={() => this.setA()} disabled={this.state.side !== "LONG"} type="button" className="btn btn-primary">
                     <span className="huge">A</span>
                     <br></br>
                     Alice - long on BTC
                 </button>
                 <span className="huge">&nbsp;</span>
-                <button onClick={() => this.setB()} type="button" className="btn btn-success">
+                <button onClick={() => this.setB()} disabled={this.state.side !== "STABLE"} type="button" className="btn btn-success">
                     <span className="huge">B</span>
                     <br></br>
                     Bob - stable USD value
@@ -70,7 +70,7 @@ class App extends Component {
     }
 
     renderMonitor() {
-        return <Monitor side={this.state.sideSelected}></Monitor>
+        return <Monitor data={this.state}></Monitor>
     }
 
 

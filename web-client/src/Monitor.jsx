@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import './App.css';
+import axios from "axios/index";
 
-
+const baseSum = 1000;
 const Tick = (props) => {
     const {data} = props;
-    return (<div  className={`tick ${data.fulfilled ? 'fulfilled' : ''}`}>
-            <span className="info">time: {data.time.getTime()}</span>
+    const fulfilled = data.status === "FULFILLED";
+    const initial = data.status === "INITIAL";
+    return (<div className={`tick ${fulfilled ? 'fulfilled' : ''} ${initial ? 'initial' : ''}`}>
+            <span className="info">time: {data.timestamp}</span>
             <span className="info">rate: {data.rate}</span>
-            <span className="info"> fulfilled: {data.fulfilled}</span>
-            </div>
+            <span className="info"> status: {data.status}</span>
+        </div>
         // {/*<div className={`tick ${data.fulfilled ? 'fulfilled' : ''}`}>*/}
         //     {/*time:{data.time}*/}
         //     {/*rate:{data.rate}*/}
@@ -22,15 +25,27 @@ class Monitor extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            ticks: [
-                {time: new Date(), rate: '1:9832', fulfilled: true},
-                {time: new Date(), rate: '1:9832', fulfilled: true},
-                {time: new Date(), rate: '1:9832', fulfilled: false},
-                {time: new Date(), rate: '1:9832', fulfilled: false},
-                {time: new Date(), rate: '1:9832', fulfilled: false},
-            ]
-        }
+        this.state = {ticks: []}
+    }
+
+    componentDidMount() {
+        const self = this;
+        setInterval(() => {
+            axios.get('http://localhost:3333/api/state', {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                }
+            })
+                .then((response) => {
+                    console.log(response.data);
+                    self.setState((prevState, props) => {
+                        return response.data;
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }, 5000)
     }
 
     render() {
@@ -53,13 +68,13 @@ class Monitor extends Component {
                     </tr>
                     <tr>
                         <th>Sum</th>
-                        <td>$1000</td>
-                        <td>$1000</td>
+                        <td>${this.state.baseSum}</td>
+                        <td>${this.state.currentSum}</td>
                     </tr>
                     <tr>
                         <th> Rate</th>
-                        <td>1:9834</td>
-                        <td>1:9835</td>
+                        <td>1:{this.state.baseRate}</td>
+                        <td>1:{this.state.currentRate}</td>
                     </tr>
                     </tbody>
                 </table>
