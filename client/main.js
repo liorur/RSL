@@ -21,7 +21,7 @@ MongoClient.connect(uri, function (err, client) {
 });
 
 const Start = () => {
-    setInterval(update, 10000);
+    setInterval(update, 3000);
 };
 
 let currentLog = [];
@@ -171,7 +171,7 @@ const checkAndFulfill = async (index, invoice) => {
 const payInvoice = async (invoice_hash) => {
     console.log("payInvoice");
     console.log("invoice_hash", invoice_hash);
-    await lndClient.sendPayment(invoice_hash);
+    await lndClient.sendPayment(invoice_hash.payment_request);
 };
 
 const createInvoice = async (sum) => {
