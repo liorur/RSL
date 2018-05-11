@@ -7,7 +7,8 @@ const Tick = (props) => {
     const {data} = props;
     const fulfilled = data.status === "FULFILLED";
     const initial = data.status === "INITIAL";
-    return (<div className={`tick ${fulfilled ? 'fulfilled' : ''} ${initial ? 'initial' : ''}`}>
+    const pending = data.status === "PENDING";
+    return (<div className={`tick ${fulfilled ? 'fulfilled' : ''} ${initial ? 'initial' : ''} ${initial ? 'initial' : ''}  ${pending ? 'pending' : ''}`}>
             <span className="info">time: {data.timestamp}</span>
             <span className="info">rate: {data.rate}</span>
             <span className="info"> status: {data.status}</span>
@@ -45,7 +46,7 @@ class Monitor extends Component {
                 .catch((error) => {
                     console.log(error);
                 });
-        }, 5000)
+        }, 1000)
     }
 
     render() {

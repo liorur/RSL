@@ -50,7 +50,7 @@
     width: 40%;
 }
 table{
-    font-size: 80px;
+    font-size: 50px;
 }
 td{
     padding: 40px;
@@ -67,6 +67,10 @@ td{
 
 .tick.initial{
     background-color:lightgoldenrodyellow;
+}
+
+.tick.pending{
+    background-color:sandybrown;
 }
 
 .info{

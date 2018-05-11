@@ -1,4 +1,4 @@
-const config = require('dotenv').config({path: './client/.env'}).parsed;
+const config = require('dotenv').config({path: './.env'}).parsed;
 const MongoClient = require('mongodb').MongoClient;
 
 
@@ -21,7 +21,7 @@ MongoClient.connect(uri, function (err, client) {
 });
 
 const Start = () => {
-    setInterval(update, 5000);
+    setInterval(update, 2000);
 };
 
 let currentLog = [];
@@ -38,6 +38,23 @@ const update = () => {
 };
 
 const review = (side) => {
+
+    let longSum = 0;
+    let stableSum = 0;
+
+    currentLog.forEach((element) => {
+        if (element.status === _FULFILLED_) {
+            console.log(element);
+            if (element.receiving_side === _LONG_) {
+                longSum += element.satoshies_to_send;
+            }
+            if (element.receiving_side === _STABLE_) {
+                stableSum += element.satoshies_to_send;
+            }
+        }
+    });
+
+
     const initial = currentLog.find(function (element) {
         return element.status === _INITIAL_;
     });
@@ -65,7 +82,20 @@ const review = (side) => {
     const firtsUnresolved = pending || newTick;
 
     currentRate = lastResolved.rate;
-    currentSum = "********";
+
+    if (side == _LONG_) {
+        const btc = SatoshiToBTC(longSum - stableSum);
+        currentSum = (baseSum + btc * currentRate).toFixed(2);
+
+        console.log("longSum", longSum);
+        console.log("stableSum", stableSum);
+        console.log("btc", btc);
+        console.log("currentSum", currentSum);
+    }
+    if (side == _STABLE_) {
+        const btc = SatoshiToBTC(stableSum - longSum);
+        currentSum = (baseSum + btc * currentRate).toFixed(2);
+    }
 
     if (!firtsUnresolved) {
         return
@@ -103,7 +133,8 @@ const sendInvoice = (index, stoshisToSend, side) => {
         $set: {
             invoice_hash: invoice,
             status: _PENDING_,
-            receiving_side: side
+            receiving_side: side,
+            satoshies_to_send: stoshisToSend
         }
     };
     collection.updateOne({index}, record, function (err, res) {
@@ -120,6 +151,7 @@ const calculateDiff = (intialRate, lastFulfilledRate, currentRate) => {
 };
 
 const BTCtoSatoshi = (sum) => Math.round(100000000 * sum);
+const SatoshiToBTC = (sum) => (sum / 100000000);
 
 const checkAndFulfill = (index, invoice) => {
     if (isFulfilled(invoice)) {
