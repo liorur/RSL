@@ -151,7 +151,7 @@ function isInvoiceSettled(options) {
         listInvoices(options)
             .then(result => {
                 console.log('isInvoiceSettled', options, result);
-                resolve(result && result.settled || false);
+                resolve(result && _.isArray(result) && result.length > 0 && result[0].settled || false);
             })
             .catch(err => reject(err));
     });
