@@ -16,6 +16,8 @@ lndClient.getInfo()
 //     .then(info => console.log(info))
 //     .catch(err => console.error(err));
 
-// lndClient.addInvoice(new lndClient.Invoice())
-//     .then(info => console.log(info))
-//     .catch(err => console.error(err));
+let invoice = new lndClient.Invoice();
+invoice.value = 1000;
+lndClient.addInvoice(invoice)
+    .then(info => console.log(info))
+    .catch(err => console.error(err));
