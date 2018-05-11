@@ -9,7 +9,7 @@ MongoClient.connect(uri, function (err, client) {
     collection.drop(function (err, res) {
 
         console.log("ALL REMOVED");
-        const x = 5;
+        const x = 0.5;
         const base = 10000;
         let record;
         record = {
@@ -84,6 +84,32 @@ MongoClient.connect(uri, function (err, client) {
             status: "NEW",
             timestamp: 6,
             rate: base + x,
+        };
+        collection.insertOne(record, function (err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            console.log(record);
+        });
+
+        record = {
+            index: 7,
+            invoice_hash: null,
+            status: "NEW",
+            timestamp: 7,
+            rate: base - (x * 7),
+        };
+        collection.insertOne(record, function (err, res) {
+            if (err) throw err;
+            console.log("1 document inserted");
+            console.log(record);
+        });
+
+        record = {
+            index: 8,
+            invoice_hash: null,
+            status: "NEW",
+            timestamp: 8,
+            rate: base ,
         };
         collection.insertOne(record, function (err, res) {
             if (err) throw err;

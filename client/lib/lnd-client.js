@@ -1,7 +1,7 @@
-console.log(require('dotenv').config({path: '../.env'}));
+console.log(require('dotenv').config({path: './.env'}));
 const grpc = require('grpc'),
     fs = require('fs'),
-    lnrpcDescriptor = grpc.load('../rpc.proto'),
+    lnrpcDescriptor = grpc.load('./rpc.proto'),
     _ = require('lodash'),
     ByteBuffer = require('bytebuffer');
 

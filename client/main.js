@@ -1,6 +1,6 @@
 const config = require('dotenv').config({path: './.env'}).parsed;
 const MongoClient = require('mongodb').MongoClient;
-
+const lndClient = require('../client/lib/lnd-client');
 
 const _PENDING_ = "PENDING";
 const _INITIAL_ = "INITIAL";
@@ -21,7 +21,7 @@ MongoClient.connect(uri, function (err, client) {
 });
 
 const Start = () => {
-    setInterval(update, 2000);
+    setInterval(update, 10000);
 };
 
 let currentLog = [];
@@ -127,8 +127,8 @@ const review = (side) => {
     }
 };
 
-const sendInvoice = (index, stoshisToSend, side) => {
-    const invoice = createInvoice(stoshisToSend);
+const sendInvoice = async (index, stoshisToSend, side) => {
+    const invoice = await createInvoice(stoshisToSend);
     const record = {
         $set: {
             invoice_hash: invoice,
@@ -153,8 +153,8 @@ const calculateDiff = (intialRate, lastFulfilledRate, currentRate) => {
 const BTCtoSatoshi = (sum) => Math.round(100000000 * sum);
 const SatoshiToBTC = (sum) => (sum / 100000000);
 
-const checkAndFulfill = (index, invoice) => {
-    if (isFulfilled(invoice)) {
+const checkAndFulfill = async (index, invoice) => {
+    if (await isFulfilled(invoice)) {
         const record = {
             $set: {
                 status: _FULFILLED_,
@@ -168,17 +168,25 @@ const checkAndFulfill = (index, invoice) => {
 };
 
 
-const payInvoice = (invoice_hash) => {
+const payInvoice = async (invoice_hash) => {
     console.log("payInvoice");
+    console.log("invoice_hash", invoice_hash);
+    await lndClient.sendPayment(invoice_hash);
 };
 
-const createInvoice = (sum) => {
+const createInvoice = async (sum) => {
     console.log("createInvoice");
-    return "_INVOICE_" + sum;
+    const invoice = new lndClient.Invoice();
+    invoice.value = sum;
+    const invoiceDetails = await lndClient.addInvoice(invoice);
+    console.log("invoiceDetails", invoiceDetails);
+    return invoiceDetails;
 };
 
-const isFulfilled = () => {
-    console.log("isFulfilled");
+const isFulfilled = async (invoice_hash) => {
+    // console.log("isFulfilled");
+    // const isfufilled = await lndClient.isInvoiceSettled(invoice_hash);
+    // console.log("isfufilled", isfufilled ? "yes" : "no");
     return true;
 };
 
