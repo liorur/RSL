@@ -116,6 +116,33 @@ function addInvoice(invoiceRequest) {
     });
 }
 
+/**
+ *
+ * @param options string r_hash | bool settled | bool private
+ * @returns {Promise}
+ */
+function listInvoices(options) {
+    return new Promise((resolve, reject) => {
+        lightning.ListInvoices({}, function (err, response) {
+            if (err)
+                return reject(err);
+            let invoices = response && typeof response.invoices !== 'undefined' && _.isArray(response.invoices) ? response.invoices : null;
+            if (invoices && options) {
+                if (typeof options.r_hash !== 'undefined')
+                    invoices = invoices.filter(invoice => invoice.r_hash === options.r_hash);
+                else {
+                    if (typeof options.settled !== 'undefined')
+                        invoices = invoices.filter(invoice => invoice.settled === options.settled);
+
+                    if (typeof options.private !== 'undefined')
+                        invoices = invoices.filter(invoice => invoice.private === options.private);
+                }
+            }
+            resolve(invoices);
+        });
+    });
+}
+
 function sendPayment(paymentHash) {
     return new Promise((resolve, reject) => {
         if (!paymentHash)
@@ -144,4 +171,5 @@ module.exports = {
     Invoice: lnrpcDescriptor.lnrpc.Invoice,
     ListChannelsRequest: lnrpcDescriptor.lnrpc.ListChannelsRequest,
     addInvoice,
+    listInvoices,
 };

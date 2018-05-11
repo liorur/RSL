@@ -12,12 +12,16 @@ lndClient.getInfo()
 //     .then(info => console.log(info))
 //     .catch(err => console.error(err));
 
-// lndClient.sendPayment('lntb10u1pd0fpc5pp5f92maktz20pv3caxuug0uteq3sd8lh4p6qtfv52eeegt52fs9fvqdqqcqzysk0ypu35alr47l2teel67cd2zk3xynpsze6edtufukqx00enc6slpejz3d63ash9rylfr3z50z08fqw0l8rmtn3q0wwhe65uguzv6kacpvqrrhw')
+// lndClient.sendPayment('lntb11110n1pd02tc2pp5w0md59vg6jsqm5ulavvr8wtkn232en305gc8fej7edfakjz3ucdqdqqcqzys0uevkkl7njyj9d80ccpe0ftce3hyvnnpmvj6zthx5n6tvn56xg8887e8z75wagfpj92d5rdyn89fx0q8pm985kh2eyrc2c9fp0fs48cp54gc86')
 //     .then(info => console.log(info))
 //     .catch(err => console.error(err));
 
-let invoice = new lndClient.Invoice();
-invoice.value = 1000;
-lndClient.addInvoice(invoice)
+// let invoice = new lndClient.Invoice();
+// invoice.value = 1000;
+// lndClient.addInvoice(invoice)
+//     .then(info => console.log(info))
+//     .catch(err => console.error(err));
+
+lndClient.listInvoices({settled: false})
     .then(info => console.log(info))
     .catch(err => console.error(err));
