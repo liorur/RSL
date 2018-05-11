@@ -128,6 +128,8 @@ function listInvoices(options) {
                 return reject(err);
             let invoices = response && typeof response.invoices !== 'undefined' && _.isArray(response.invoices) ? response.invoices : null;
             if (invoices && options) {
+                if (typeof options.pay_req !== 'undefined')
+                    invoices = invoices.filter(invoice => invoice.payment_request === options.pay_req);
                 if (typeof options.r_hash !== 'undefined')
                     invoices = invoices.filter(invoice => invoice.r_hash === options.r_hash);
                 else {
@@ -140,6 +142,17 @@ function listInvoices(options) {
             }
             resolve(invoices);
         });
+    });
+}
+
+function isInvoiceSettled(options) {
+    return new Promise(async (resolve, reject) => {
+        listInvoices(options)
+            .then(result => {
+                console.log(result);
+                resolve(result && result.settled || false);
+            })
+            .catch(err => reject(err));
     });
 }
 
@@ -172,4 +185,5 @@ module.exports = {
     ListChannelsRequest: lnrpcDescriptor.lnrpc.ListChannelsRequest,
     addInvoice,
     listInvoices,
+    isInvoiceSettled,
 };

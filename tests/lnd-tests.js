@@ -1,8 +1,8 @@
 const lndClient = require('../client/lib/lnd-client');
 
-lndClient.getInfo()
-    .then(info => console.log(info))
-    .catch(err => console.error(err));
+// lndClient.getInfo()
+//     .then(info => console.log(info))
+//     .catch(err => console.error(err));
 //
 // lndClient.listPeers()
 //     .then(info => console.log(info))
@@ -22,6 +22,10 @@ lndClient.getInfo()
 //     .then(info => console.log(info))
 //     .catch(err => console.error(err));
 
-lndClient.listInvoices({r_hash: '73f6da1588d4a00dd39feb1833b9769aa2acce2fa23074e65ecb53db4851e61a'})
+// lndClient.listInvoices({r_hash: '73f6da1588d4a00dd39feb1833b9769aa2acce2fa23074e65ecb53db4851e61a'})
+//     .then(info => console.log(info))
+//     .catch(err => console.error(err));
+
+lndClient.isInvoiceSettled({pay_req: 'lntb10u1pd022vupp54tgf2pc4rqwpkc55zeuzgckr9udgw5hjqcunsgq2nalcy5yc2y0qdqqcqzyst9c46072qle27t67vqycqm60s60udu8d5jj4mf7yvmljrandf6kp9gach7je42vu3zve4qyz9yjk7e20w3z07dq680qfyjlastxfzvspg3zj2q'})
     .then(info => console.log(info))
     .catch(err => console.error(err));
