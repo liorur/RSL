@@ -127,6 +127,7 @@ function listInvoices(options) {
             if (err)
                 return reject(err);
             let invoices = response && typeof response.invoices !== 'undefined' && _.isArray(response.invoices) ? response.invoices : null;
+            console.log('listInvoices', options, invoices);
             if (invoices && options) {
                 if (typeof options.payment_request !== 'undefined')
                     invoices = invoices.filter(invoice => invoice.payment_request === options.payment_request);
@@ -149,7 +150,7 @@ function isInvoiceSettled(options) {
     return new Promise(async (resolve, reject) => {
         listInvoices(options)
             .then(result => {
-                console.log("isInvoiceSettled", options, result);
+                console.log('isInvoiceSettled', options, result);
                 resolve(result && result.settled || false);
             })
             .catch(err => reject(err));

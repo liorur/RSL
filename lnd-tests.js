@@ -1,4 +1,4 @@
-const lndClient = require('../client/lib/lnd-client');
+const lndClient = require('./client/lib/lnd-client');
 
 // lndClient.getInfo()
 //     .then(info => console.log(info))
