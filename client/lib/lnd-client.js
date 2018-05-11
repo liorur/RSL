@@ -56,13 +56,10 @@ function addInvoice(invoiceRequest) {
     });
 }
 
-function sendPayment(destPubKey, amount) {
+function sendPayment(paymentHash) {
     return new Promise((resolve, reject) => {
-        if (!destPubKey)
-            return reject(new Error('destPubKey must be provided.'));
-        if (!amount || amount <= 0 || !_.isInteger(amount))
-            return reject(new Error('amount must be a positive integer'));
-        let destPubKeyBytes = ByteBuffer.fromHex(destPubKey);
+        if (!paymentHash)
+            return reject(new Error('please provide a paymentHash'));
 
         var call = lightning.sendPayment();
         call.on('data', function (payment) {
@@ -75,10 +72,7 @@ function sendPayment(destPubKey, amount) {
             console.log('END');
         });
 
-        call.write({
-            dest: destPubKeyBytes,
-            amt: amount,
-        });
+        call.write({payment_request: paymentHash});
     });
 }
 
