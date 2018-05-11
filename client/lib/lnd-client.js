@@ -131,7 +131,7 @@ function listInvoices(options) {
             if (invoices && options) {
                 if (typeof options.payment_request !== 'undefined')
                     invoices = invoices.filter(invoice => invoice.payment_request === options.payment_request);
-                if (typeof options.r_hash !== 'undefined')
+                else if (typeof options.r_hash !== 'undefined')
                     invoices = invoices.filter(invoice => invoice.r_hash === options.r_hash);
                 else {
                     if (typeof options.settled !== 'undefined')
