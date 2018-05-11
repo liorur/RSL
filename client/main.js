@@ -184,10 +184,11 @@ const createInvoice = async (sum) => {
 };
 
 const isFulfilled = async (invoice_hash) => {
-    // console.log("isFulfilled");
-    // const isfufilled = await lndClient.isInvoiceSettled(invoice_hash);
-    // console.log("isfufilled", isfufilled ? "yes" : "no");
-    return true;
+    console.log("isFulfilled");
+    const isfufilled = await lndClient.isInvoiceSettled(invoice_hash);
+    console.log("isfufilled", isfufilled ? "yes" : "no");
+    return isfufilled;
+    //return true;
 };
 
 const getCurrentLog = () => {
