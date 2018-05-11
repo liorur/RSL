@@ -9,7 +9,7 @@ MongoClient.connect(uri, function (err, client) {
     collection.drop(function (err, res) {
 
         console.log("ALL REMOVED");
-        const x = 5;
+        const x = 0.5;
         const base = 10000;
         const records = [{
             index: 1,

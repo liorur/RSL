@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './App.css';
 import axios from "axios/index";
 
-const baseSum = 1000;
+const baseSum = 100;
 const Tick = (props) => {
     const {data} = props;
     const fulfilled = data.status === "FULFILLED";
@@ -85,7 +85,7 @@ class Monitor extends Component {
                     <tr>
                         <th>Sum</th>
                         <td>${this.state.baseSum}</td>
-                        <td>${this.state.currentSum}</td>
+                        <td>${this.props.side == "STABLE" ? this.state.baseSum : this.state.currentSum}</td>
                     </tr>
                     <tr>
                         <th> Rate</th>

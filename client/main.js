@@ -44,7 +44,7 @@ const review = (side) => {
 
     currentLog.forEach((element) => {
         if (element.status === _FULFILLED_) {
-            console.log(element);
+            //console.log(element);
             if (element.receiving_side === _LONG_) {
                 longSum += element.satoshies_to_send;
             }

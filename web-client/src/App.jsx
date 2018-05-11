@@ -70,7 +70,7 @@ class App extends Component {
     }
 
     renderMonitor() {
-        return <Monitor data={this.state}></Monitor>
+        return <Monitor data={this.state} side={this.state.side}></Monitor>
     }
 
 
