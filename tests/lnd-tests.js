@@ -22,6 +22,6 @@ lndClient.getInfo()
 //     .then(info => console.log(info))
 //     .catch(err => console.error(err));
 
-lndClient.listInvoices({settled: false})
+lndClient.listInvoices({r_hash: '73f6da1588d4a00dd39feb1833b9769aa2acce2fa23074e65ecb53db4851e61a'})
     .then(info => console.log(info))
     .catch(err => console.error(err));
